@@ -43,6 +43,7 @@ function loadTemplates()
 		"alert",
 		"attributions",
 		"contribute-en",
+		"contribute-de",
 		"depthsensoroffset-de",
 		"depthsensoroffset-en",
 		"Disabledcontribute-de",
