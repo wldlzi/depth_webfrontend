@@ -104,7 +104,8 @@ OSeaM.models.Track = Backbone.Model.extend({
             default:
                 return '-';
         }
-    },    onReaderLoad: function(evt, file, id) {
+    },
+    onReaderLoad: function(evt, file, id) {
         this.set('upload_state', this.STATUS_UPLOADING);
         var fd = new FormData();
         fd.append('track', file);

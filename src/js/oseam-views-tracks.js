@@ -53,28 +53,33 @@ OSeaM.views.Tracks = OSeaM.View
       this.addViews();
       this.render();
     },
+    
+    // this function does add each track-entry, already stored on the servers database, to the current view
     addViews: function() {
       this.listEl.empty();
       this._views = [];
       var self = this;
-      this.collection.each(function(model) {
-        self._views.push(new OSeaM.views.Track({
+      this.collection.each(function(model) {		// loop until "collection.length" has reached
+        self._views.push(new OSeaM.views.Track({	// .push: add the next track entry to the array "_views" 
           model: model,
           vessels: self.vessels,
           licenses: self.licenses
         }));
       });
     },
+    
     renderContent: function() {
-      this.listEl = this.$el.find('tbody');
-      this.listEl.empty();
+      this.listEl = this.$el.find('tbody');			// find the root of "tbody" in the html (for example "tracks-de.handlebars")
+      this.listEl.empty();							// make sure the list is empty
       var container = document.createDocumentFragment();
 
-      _.each(this._views, function(subview) {
+      _.each(this._views, function(subview) {		// fill in each table element
         container.appendChild(subview.render().el)
       });
-      this.listEl.append(container);
+      this.listEl.append(container);				// append the final table to html "tbody" 
     },
+    
+    // update the vessel config
     renderVesselSelection: function() {
       this.vesselviews = new OSeaM.views.Selection({
         el: $("#vesselselection"),
@@ -83,6 +88,8 @@ OSeaM.views.Tracks = OSeaM.View
       $("#vesselselection option[value=" + localStorage.lastvessel + "]").attr("selected", "selected");
       this.candidateTrack.set('vesselconfigid', localStorage.lastvessel);
     },
+    
+    // update the track licences
     renderLicenceSelection: function() {
       this.licenseviews = new OSeaM.views.Selection({
         el: $("#licenseselection"),
@@ -91,6 +98,7 @@ OSeaM.views.Tracks = OSeaM.View
       $("#licenseselection option[value=" + localStorage.lastlicense + "]").attr("selected", "selected");
       this.candidateTrack.set('license', localStorage.lastlicense);
     },
+    
     render: function() {
       var self = this;
       var wait = '';
@@ -99,18 +107,20 @@ OSeaM.views.Tracks = OSeaM.View
       var singleConf = '';
       this.$el.empty();
       var language = OSeaM.frontend.getLanguage();
-      var template = OSeaM.loadTemplate('tracks-' + language);
+      var template = OSeaM.loadTemplate('tracks-' + language);		// load for example "tracks-de.handlebars" ( html tabel)
       var content = $(template());
-      OSeaM.frontend.translate(content);
+      OSeaM.frontend.translate(content);							// 1. view the static html "tracks-de.handlebars"
       this.$el.html(content);
-      this.renderContent();
+      this.renderContent();											// 2. view the table of already stored tracks
       //		        this.collection.forEach(this.onAddItem, this);
       if (this.vessels)
-        this.renderVesselSelection();
+        this.renderVesselSelection();								// 3. view vessel config
 
       if (this.licenses)
-        this.renderLicenceSelection();
+        this.renderLicenceSelection();								// 4. view vessel Licence
     },
+    
+    
     onFileSelected: function(evt) {
       if (typeof this.candidateTrack.get('vesselconfigid') === "undefined" || typeof this.candidateTrack.get('license') === "undefined") {
         alert('You have to select a vessel configuration and a license in order to upload tracks');
