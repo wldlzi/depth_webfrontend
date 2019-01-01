@@ -38,6 +38,7 @@ function loadTemplates()
 	// all snippets that normally are packed by the handlebars precompiler must be mentioned here
 	var hbdivs = [		
 		"about-en",
+		"about-de",
 		"alert-info",
 		"alert-success",
 		"alert",
