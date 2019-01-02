@@ -12,7 +12,7 @@
 }
 
 .navbar form input {
-    height : 16px;
+    height : 20px;				/* should be 20 px to view the full text on email and pw input */
 }
 
 .table .progress {

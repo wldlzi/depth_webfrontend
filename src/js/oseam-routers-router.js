@@ -65,12 +65,15 @@ OSeaM.routers.Router = Backbone.Router.extend({
         this.renderTopAndNavBar('about');
         OSeaM.frontend.startView('About');
     },
+    
     user: function() {
-        this.renderTopAndNavBar('user');
+        this.renderTopAndNavBar('user');						//RKu: mit Login  zus. Abfrage und Änderungen speichern einbauen
         OSeaM.frontend.startView('User', {
             model: OSeaM.frontend.getUser()
         });
+        this.checkAuthenticated();								//RKu: das muss ergänzt werden, sobald man auf dem Server einloggen kann
     },
+    
     register: function() {
         this.renderTopAndNavBar('register');
         OSeaM.frontend.startView('Register', {
@@ -87,32 +90,40 @@ OSeaM.routers.Router = Backbone.Router.extend({
         this.renderTopAndNavBar('introduction');
         OSeaM.frontend.startView('Introduction');
     },
+    
     tracks: function() {
         this.renderTopAndNavBar('tracks');
-//        if (this.checkAuthenticated() === true) {
+//        if (this.checkAuthenticated() === true) {				//RKu: muss mit Login wieder aktiviert werden
             OSeaM.frontend.startView('Tracks', {
                 collection : OSeaM.frontend.getTracks(),
                 vessels: OSeaM.frontend.getVessels(),
                 licenses: OSeaM.frontend.getLicenses()
             });
-//        }
-    },
+//        }														//RKu: das auch
+        this.checkAuthenticated();								//RKu: das muss ergänzt werden, sobald man auf dem Server einloggen kann
+	},
+	
     vessels: function() {
     	this.renderTopAndNavBar('vessels');
-//    	if (this.checkAuthenticated() === true) {
+//    	if (this.checkAuthenticated() === true) {				//RKu: das auch
     	OSeaM.frontend.startView('Vessels', {
     			collection : OSeaM.frontend.getVessels()
     			});
-//    	}
+//    	}														//RKu: das auch
+        this.checkAuthenticated();								//RKu: das muss ergänzt werden, sobald man auf dem Server einloggen kann
+
     },
+    
     gauges: function() {
     	this.renderTopAndNavBar('gauges');
-//    	if (this.checkAuthenticated() === true) {
+//    	if (this.checkAuthenticated() === true) {				//RKu: das auch
     	OSeaM.frontend.startView('Gauges', {
 			collection : OSeaM.frontend.getGauges()
 		});
-//    	}
+//    	}														//RKu: das auch
+        this.checkAuthenticated();								//RKu: das muss ergänzt werden, sobald man auf dem Server einloggen kann
     },
+    
     maptracks: function() {
         this.renderTopAndNavBar('maptracks');
         OSeaM.frontend.startView('MapTracks');

@@ -92,7 +92,7 @@ OSeaM.views.ToolBar = OSeaM.View.extend({
             password : this.fieldPassword.val()
         };
         params.password = jQuery.encoding.digests.hexSha1Str(params.password);
-        this.model.login(params);
+        this.model.login(params);													//RKu: ruft in oseam-models-auth.js die funktion login auf
         this.buttonSubmit.button('reset');
         return false;
     },

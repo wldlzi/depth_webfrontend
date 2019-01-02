@@ -12,6 +12,7 @@
 // -------------------------------------------------------------------------------------------------
 
 OSeaM.models.Auth = Backbone.Model.extend({
+
     setAuthenticated: function(value) {
         this.set({
             authenticated : value
@@ -22,6 +23,7 @@ OSeaM.models.Auth = Backbone.Model.extend({
             this.trigger('loggedOut');
         }
     },
+    
     isAuthenticated: function() {
         if (this.has('authenticated') && this.get('authenticated') === true) {
             return true;
@@ -29,12 +31,15 @@ OSeaM.models.Auth = Backbone.Model.extend({
             return false;
         }
     },
+    
     getUsername: function() {
         return this.get('username');
     },
+    
     getCaptchaUrl: function() {
         return OSeaM.apiUrl + 'users/captcha';
     },
+    
     create: function(params) {
         this.set({username : params.username});
         jQuery.ajax({
@@ -50,13 +55,16 @@ OSeaM.models.Auth = Backbone.Model.extend({
             error: this.onCreateError
         });
     },
+    
     onCreateSuccess: function(data, success, jqXHR) {
         this.trigger('createSuccess', data);
 //        this.setAuthenticated(true);
     },
+    
     onCreateError: function(jqXHR, textStatus, errorThrown) {
         this.trigger('createFailure', jqXHR);
     },
+    
     requestNewPassword: function(params) {
         jQuery.ajax({
             type: 'POST',
@@ -71,11 +79,12 @@ OSeaM.models.Auth = Backbone.Model.extend({
             error: function(data){ this.trigger('passwordResetFailure', data); },
         });
     },
-    login: function(params) {
-        this.set({username : params.username});
+    
+    login: function(params) {												//RKu: um zu sehen warum der Server nicht positiv antwortet
+        this.set({username : params.username});								//RKu: muss das zusammen mit dem TomCat debugged werden
         jQuery.ajax({
             type: 'POST',
-            url: OSeaM.apiUrl + '/auth/login',
+            url: OSeaM.apiUrl + 'auth/login',
             dataType: 'json',
             data: params,
             context: this,
@@ -86,17 +95,26 @@ OSeaM.models.Auth = Backbone.Model.extend({
             error: this.onLoginError
         });
     },
+    
     onLoginSuccess: function(data, success, jqXHR) {
         this.trigger('loginSuccess', data);
         this.setAuthenticated(true);
     },
+    
     onLoginError: function(jqXHR, textStatus, errorThrown) {
         this.trigger('loginFailure', jqXHR);
+        var elements = document.getElementById("oseam-1");					//RKu: {{idUsername}}
+        elements.style.backgroundColor = '#FF4500';							//RKu:
+        var elements = document.getElementById("oseam-2");					//RKu: {{idPassword}}
+        elements.style.backgroundColor = '#FF4500';							//RKu:
+        alert("Fehlermeldung von TomCat: "  + errorThrown + "\nBitte melde dich ordentlich an, um diese Funktion zu nutzen.");	//RKu: vorübergehend
+
     },
+    
     logout: function() {
         jQuery.ajax({
             type: 'POST',
-            url: OSeaM.apiUrl + '/auth/logout',
+            url: OSeaM.apiUrl + 'auth/logout',
             dataType: 'json',
             context: this,
             xhrFields: {
@@ -106,10 +124,12 @@ OSeaM.models.Auth = Backbone.Model.extend({
             error: this.onLogoutError
         });
     },
+    
     onLogoutSuccess: function(data, success, jqXHR) {
         this.trigger('logoutSuccess', data);
         this.setAuthenticated(false);
     },
+    
     onLogoutError: function(jqXHR, textStatus, errorThrown) {
         this.trigger('logoutFailure', jqXHR);
     }

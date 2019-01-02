@@ -37,10 +37,12 @@ OSeaM.models.Track = Backbone.Model.extend({
         vesselconfigid : null,
         uploadDate : new Date()
     },
+    
     urlRoot: function() {
 //    	return OSeaM.apiUrl + 'track/' + this.get("id");
     	return OSeaM.apiUrl + 'track';
     },
+    
 //    url: function() {
 //    	return OSeaM.apiUrl + 'track/' + this.get("id");
 ////    	return OSeaM.apiUrl + 'track';
@@ -75,6 +77,7 @@ OSeaM.models.Track = Backbone.Model.extend({
                 return '-';
         }
     },
+    
     getStatusTooltip: function() {
         switch (this.get('upload_state')) {
             case this.STATUS_STARTING_UPLOAD:
@@ -105,6 +108,7 @@ OSeaM.models.Track = Backbone.Model.extend({
                 return '-';
         }
     },
+    
     onReaderLoad: function(evt, file, id) {
         this.set('upload_state', this.STATUS_UPLOADING);
         var fd = new FormData();
@@ -125,12 +129,14 @@ OSeaM.models.Track = Backbone.Model.extend({
         xmlRequest.addEventListener('load', jQuery.proxy(fnDone, this));
         xmlRequest.send(fd);
     },
+    
     onReaderProgress:function(evt) {
         if (evt.lengthComputable) {
             var percentComplete = Math.round(evt.loaded / evt.total * 100);
             this.set('progress', percentComplete);
         }
     },
+    
     uploadFile: function(file) {
         this.set({
             fileName : file.name,
@@ -138,6 +144,7 @@ OSeaM.models.Track = Backbone.Model.extend({
         });
         this.requestNewId(file);
     },
+    
     requestNewId: function(file) {
         this.set('status', this.STATUS_REQUESTING_ID);
         var fn = function(data) {
@@ -165,6 +172,7 @@ OSeaM.models.Track = Backbone.Model.extend({
 //            success: jQuery.proxy(fn, this)
 //        });
     },
+    
     onNewId: function(file, data) {
         this.set({
             id       : data.id,
@@ -172,6 +180,7 @@ OSeaM.models.Track = Backbone.Model.extend({
         });
         this.onReaderLoad(null, file, data.id);
     },
+    
     onUploadDone:function(request, evt) {
 //    	console.log("uploadDone" + this.get('upload_state'));
         if (request.status == 200) {
@@ -182,4 +191,5 @@ OSeaM.models.Track = Backbone.Model.extend({
         }
 //    	console.log("uploadDone" + this.get('upload_state'));
     }
+    
 });

@@ -13,8 +13,7 @@
 
 
 // this view lists the tracks
-OSeaM.views.Tracks = OSeaM.View
-  .extend({
+OSeaM.views.Tracks = OSeaM.View.extend({
     events: {
       'change .oseam-upload-wrapper input': 'onFileSelected',
       'change .licenseId': 'onChangeLicenseConfigId',
@@ -123,7 +122,17 @@ OSeaM.views.Tracks = OSeaM.View
     
     onFileSelected: function(evt) {
       if (typeof this.candidateTrack.get('vesselconfigid') === "undefined" || typeof this.candidateTrack.get('license') === "undefined") {
-        alert('You have to select a vessel configuration and a license in order to upload tracks');
+//        alert('You have to select a vessel configuration and a license in order to upload tracks');
+//RKu:+ 
+        var template = OSeaM.loadTemplate('alert');					//RKu: set up a proper error message if vessel and license not valid      
+        this.renderParams =  {
+            title : '1027:Validation error occured!',
+            msg   : '1308:You have to select a vessel configuration and a license in order to upload tracks.'
+        };
+        var content = $(template(this.renderParams));
+        OSeaM.frontend.translate(content);
+        this.$el.find('legend').after(content);
+//RKu:-        
         return;
       }
       for (var i = 0; i < evt.target.files.length; i++) {

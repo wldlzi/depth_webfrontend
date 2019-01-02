@@ -13,7 +13,9 @@
 
 OSeaM.models.Frontend = Backbone.Model.extend({
     actualView:null,
+    
     translations: {},
+    
     getAuth: function() {
         if (this.has('auth') === false) {
             this.set({
@@ -72,7 +74,7 @@ OSeaM.models.Frontend = Backbone.Model.extend({
     },
     startView: function(name, settings) {
         if (this.actualView) {
-            this.actualView.close();
+//RKu            this.actualView.close();						// delete current view from html "span9 oseam-container" nein, nicht mehr
         }
         var cfg = settings || {};
         this.actualView = new OSeaM.views[name](jQuery.extend({
@@ -101,9 +103,11 @@ OSeaM.models.Frontend = Backbone.Model.extend({
         }
         localStorage.language = language;
     },
+    
     getLanguage: function() {
         return this.get('language');
     },
+    
     translate: function(el) {
         // Seach in children
         elements = el.find('[data-trt], [data-trt-placeholder], [title]');

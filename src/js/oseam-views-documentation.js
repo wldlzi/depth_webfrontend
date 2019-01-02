@@ -1,5 +1,4 @@
 // -------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------
 // OpenSeaMap Water Depth - Web frontend for depth data handling.
 //
 // Written in 2012 by Dominik Fässler dfa@bezono.org
@@ -17,8 +16,8 @@ OSeaM.views.Documentation = OSeaM.View.extend({
         OSeaM.frontend.on('change:language', this.render, this);
     },
     render: function() {
-//		var language = OSeaM.frontend.getLanguage();
-        var template = OSeaM.loadTemplate('documentation-en');
+		var language = OSeaM.frontend.getLanguage();
+        var template = OSeaM.loadTemplate('documentation-' + language);
         var content = $(template());
         OSeaM.frontend.translate(content);
         this.$el.html(content);

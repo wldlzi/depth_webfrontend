@@ -13,14 +13,16 @@
 
 OSeaM.views.Login = OSeaM.View.extend({
     render: function() {
-        var template = OSeaM.loadTemplate('alert-info');
+//RKu+        var template = OSeaM.loadTemplate('alert-info');
+        var template = OSeaM.loadTemplate('alert');						//RKu-        
         this.renderParams =  {
-            title : '1009:Login',
-            msg   : '1032:Please sign in to use this part.'
+            title : '1009:Sign in!',
+            msg   : '1032:Please sign in proper to use this part.'
         };
         var content = $(template(this.renderParams));
         OSeaM.frontend.translate(content);
-        this.$el.html(content);
+//RKu        this.$el.html(content);
+        this.$el.find('legend').after(content);
         return this;
     }
 });

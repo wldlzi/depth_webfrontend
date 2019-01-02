@@ -19,7 +19,7 @@ OSeaM.views.User = OSeaM.View.extend({
     },
     render: function() {
         var language = OSeaM.frontend.getLanguage();
-        var template = OSeaM.loadTemplate('user-' + language);
+        var template = OSeaM.loadTemplate('user-' + language);			// default language is "en"
         var content = $(template( {
             user_name         : this.model.get('user_name'),
             forename   : this.model.get('forname'),
