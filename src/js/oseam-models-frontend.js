@@ -72,6 +72,7 @@ OSeaM.models.Frontend = Backbone.Model.extend({
         }
         return this.get('user');
     },
+    
     startView: function(name, settings) {
         if (this.actualView) {
 //RKu            this.actualView.close();						// delete current view from html "span9 oseam-container" nein, nicht mehr
@@ -82,6 +83,7 @@ OSeaM.models.Frontend = Backbone.Model.extend({
         }, cfg));
         this.actualView.render();
     },
+    
     setLanguage: function(language) {
         this.set({language: language});
         if (this.translations[language] === undefined) {

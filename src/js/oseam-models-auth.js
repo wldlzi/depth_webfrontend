@@ -82,6 +82,7 @@ OSeaM.models.Auth = Backbone.Model.extend({
     
     login: function(params) {												//RKu: um zu sehen warum der Server nicht positiv antwortet
         this.set({username : params.username});								//RKu: muss das zusammen mit dem TomCat debugged werden
+
         jQuery.ajax({
             type: 'POST',
             url: OSeaM.apiUrl + 'auth/login',
