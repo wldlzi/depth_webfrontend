@@ -1,178 +1,270 @@
 <!DOCTYPE html>
 <html>
+    <head>
+	<meta charset="UTF-8">
+	</head>
 <body>
 
 <div id="content">
 <legend>Dokumentation</legend>
 
-<pre>Dieser Text muss bei Gelegenheit übersetzt werden.</pre>
+<pre>Dieser Text wurde zunächst einmal grob übersetzt, muss jedoch noch einmal überprüft und ergänzt werden.</pre>
 
-This is the technical documentation for adopters or the ones who want to contribute to the project.<br>
-Javadoc is also <a href="/javadoc">available</a>.<br><br>
+Dies ist die technische Dokumentation für Anwender oder diejenigen, die sich an dem Projekt beteiligen möchten.<br>
+Ein Javadoc ist auch <a href="/javadoc">verfügbar</a>.<br><br>
 
 <ol type="1">
-  <li> <a href="#servercomm">Server Communication</a></li>
+  <li> <a href="#servercomm">Server-Kommunikation</a></li>
   	<ol>
-  		<li><a href="#signin">Sign In</a></li>
-  		<li><a href="#usermanagement">User Management</a></li>
-  		<li><a href="#trackmanagement">Tracks Management</a></li>
-  		<li><a href="#vesselmanagement">Vessel Management</a></li>
-  		<li><a href="#licensemanagement">License Management</a></li>
+  		<li><a href="#signin">Einloggen</a></li>
+  		<li><a href="#usermanagement">Benutzerverwaltung</a></li>
+  		<li><a href="#trackmanagement">Tracks Verwaltung</a></li>
+  		<li><a href="#vesselmanagement">Verwalten der Fahrzeugkonfigurationen</a></li>
+  		<li><a href="#licensemanagement">Lizenz Verwaltung</a></li>
   	</ol>
   </li>
-  <li><a href="#backendprocessing">Backend Processing</a></li>
+  <li><a href="#backendprocessing">Backend-Verarbeitung</a></li>
   	<ol>
-  		<li><a href="#datamodel">Data Model</a></li>
-  		<li><a href="#contentdetection">Track File Determination</a></li>
-  		<li><a href="#filtering">Filtering</a></li>
-  		<li><a href="#contourline">Contour Line Generation</a></li>
+  		<li><a href="#datamodel">Datenmodell</a></li>
+  		<li><a href="#contentdetection">Track Content File Erkennung</a></li>
+  		<li><a href="#filtering">Filterung</a></li>
+  		<li><a href="#contourline">Tiefen Kontur-Linien Erzeugung</a></li>
   	</ol>
 
-  <li><a href="#backendprocessing">Setup Instructions</a></li>
-  <li><a href="#backendprocessing">Building</a></li>
+  <li><a href="#backendprocessing">Anweisungen zum Einrichten</a></li>
+  <li><a href="#backendprocessing">Aufbau</a></li>
 
 </ol>  
 <br>
 
-<h4><a name="servercomm">1. Server Communication</a></h4>
-You can upload tracks via a generic REST interface. This may be interesting for third parties who want to provide an upload mechanism to the OpenSeaMap Depth project.
-This interface is being used by the webpage and the hardware logger as well.<br>
-The API can be accessed via <br> 
+<h3><a name="servercomm">1. Server-Kommunikation</a></h3>
+<p>
+Sie können Tracks über eine generische REST-Schnittstelle auf den Server laden. Dies kann 
+für Dritte interessant sein, die einen Upload-Mechanismus für das OpenSeaMap Depth-Projekt 
+bereitstellen möchten. Diese Schnittstelle wird auch von der Webseite und dem Hardware-Logger 
+verwendet.<br>
+</p>
+
+Das API ist erreichbar über:<br><br> 
 https at <a href="https://depth.openseamap.org:8443/org.osm.depth.upload/api2/">https://depth.openseamap.org:8443/org.osm.depth.upload/api2/</a> or<br>
 http at <a href="http://depth.openseamap.org:8080/org.osm.depth.upload/api2/">http://depth.openseamap.org:8080/org.osm.depth.upload/api2/</a>
 
 
-<h5><a name="signin">1.1 Sign In</a></h5>
-In order to upload any data you need to have an account.
-It is recommended to create an account through the web interface. If that does not fit your needs there is a captcha management in place where you can create a new user and need to supply the content of the captcha as a seperate field.  
+<h4><a name="signin">1.1 Einloggen</a></h4>
+<p>
+Um Daten auf den Server laden zu können, benötigen Sie ein Benutzer-Konto. Es wird 
+empfohlen, ein Benutzer-Konto über die Weboberfläche zu erstellen. Sollte dies nicht Ihren 
+Anforderungen entsprichen, gibt es ein Captcha-Management, mit dem Sie einen neuen Benutzer 
+erstellen können und den Inhalt des Captcha als separates Feld angeben müssen.
+</p>
 
-<h5><a name="usermanagement">1.2 User management</a></h5>
-Once you have an account you can login. Your credentials will be transported <b>unencrypted</b> over the wire unless you use https so it is recommended to use https instead of http as protocol.
-The authentication type is BASIC authentication. See the 
+<h4><a name="usermanagement">1.2 Benutzerverwaltung</a></h4>
+<p>
+Sobald Sie ein Benutzer-Konto haben, können Sie sich anmelden. Ihre Anmeldeinformationen 
+werden <b> unverschlüsselt </b> über die Leitung transportiert, sofern Sie nicht https: 
+verwenden. Daher wird empfohlen, https: anstelle von http: als Protokoll zu verwenden.
+Der Authentifizierungstyp ist die BASIC-Authentifizierung.
+</p>
 
-<h5><a name="trackmanagement">1.3 Tracks Management</a></h5>
-In order to list and upload tracks you need to be logged in. You will see your uploaded tracks and you may delete your own tracks. Tracks of other users are not visible for you.
-You may access the tracks via the <a href="https://depth.openseamap.org:8443/org.osm.depth.upload/api2/tracks">/tracks</a> URL.
-Uploading a track is a two step process. First you need to provide a track filename, a vesselconfigid and a licenseid through a post to the tracks URL.
-The server will return a track data structure that contains the track id. This id must be provided in a multipart message together with the uploaded file.
-See <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/resources/TrackResource.java">TrackResource</a> and
-<a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/messages/Track.java">Track</a> for further reference.
+<h4><a name="trackmanagement">1.3 Tracks Verwaltung</a></h4>
+<p>
+Um bereits vorhandene Tracks aufzulisten und um Neue auf den Server zu laden, müssen Sie 
+angemeldet sein. Sie sehen Ihre hochgeladenen Tracks und können Ihre eigenen Tracks auch 
+wieder löschen. Tracks anderer Benutzer sind für Sie nicht sichtbar. Sie können auf die 
+Tracks zugreifen über das <a href="https://depth.openseamap.org:8443/org.osm.depth.upload/api2/tracks">/tracks</a> URL.
+Das Hochladen eines Tracks erfolgt in zwei Schritten. Zuerst müssen Sie einen 
+Track-Dateinamen, eine Schiffskonfigurations-ID und eine Lizenz-ID für Ihre Daten-Spende 
+zur Track-URL angeben. Der Server gibt eine Trackdatenstruktur zurück, die die Track-ID 
+enthält. Diese ID muss zusammen mit der hochgeladenen Datei in einer mehrteiligen Nachricht 
+angegeben werden. Siehe 
+<a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/resources/TrackResource.java">TrackResource</a> und
+<a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/messages/Track.java">Track</a> 
+für zusätzliche Informationen.
+</p>
 
-<h5><a name="vesselmanagement">1.4 Vessel Management</a></h5>
-In order to upload tracks one needs to define a vessel configuration and supply the id during upload.
-You may have a look at <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/messages/VesselConfiguration.java">VesselConfiguration</a> for data reference.
-In order to manipulate the vessel configuration have a look at the REST methods provided in <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/resources/VesselConfigurationResource.java">Java</a>.
+<h4><a name="vesselmanagement">1.4 Verwalten der Fahrzeugkonfigurationen</a></h4>
+<p>
+Um Tracks hochzuladen, müssen Sie eine Schiffskonfiguration definieren und die ID während 
+des Uploads angeben. Bitte werfen Sie einen Blick auf 
+<a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/messages/VesselConfiguration.java">VesselConfiguration</a> 
+für weitere Informationen bezüglich der Datenstruktur. Um die Schiffskonfiguration zu 
+erstellen/bearbeiten, werfen Sie einen Blick auf die REST-Methode in 
+<a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/resources/VesselConfigurationResource.java">Java</a>.
+</p>
 
-<h5><a name="licensemanagement">1.5 License Management</a></h5>
-Currently there is only one license, the PDDL available. The id of this license is 1. By providing this license id to the track upload you provide this track under the terms of the PDDL.
-It is planned to provide different licenses. However this may limit data usage to different terms.  
+<h4><a name="licensemanagement">1.5 Lizenz Verwaltung</a></h4>
+<p>
+Derzeit ist nur eine Lizenz verfügbar, die PDDL. Die ID dieser Lizenz ist 1. Wenn Sie 
+diese Lizenz-ID für den Track-Upload angeben, geben Sie diesen Track gemäß den Bedingungen 
+der PDDL an OpenSeaMap ab. Es ist geplant, unterschiedliche Lizenzen bereitzustellen. Dies 
+kann jedoch die Datennutzung auf andere Bedingungen beschränken.
+</p>
 
-<h4><a name="backendprocessing">2. Backend Processing</a></h4>
-The depth postprocessing is using a modern and highly modular component architecture based on OSGi.
-This allows for contributors to easily replace certain functionality by their own implementation.
-One side effect is that this architecture is very easily testable even in a system that has not all components installed.
+<h3><a name="backendprocessing">2. Backend-Verarbeitung</a></h3>
+<p>
+Die Tiefen-Nachbearbeitung nutzt eine moderne und hoch modulare Komponentenarchitektur auf 
+Basis von OSGi. Dies ermöglicht es den Mitwirkenden, bestimmte Funktionen leicht durch 
+ihre eigene Implementierung zu ersetzen. Ein Nebeneffekt ist, dass diese Architektur auch 
+in einem System, auf dem nicht alle Komponenten installiert sind, sehr einfach zu testen ist.
+</p>
+<br>
+Die Tiefen-Nachbearbeitung ist in drei Schritten strukturiert.
+<ul>
+	<li>Der erste Schritt umfasst die Erkennung des Inhaltstyps der hochgeladenen Dateien.</li>
+	<li>Der zweite Schritt erzeugt gefilterte Trackdaten aus Sequenzen von Tracks.</li>
+	<li>Der dritte und letzte Schritt generiert Konturlinien aus gefilterten Daten.</li>
+</ul>
+Jeder Schritt kann bei Bedarf durch Ihre eigene Implementierung ersetzt werden, und jeder Schritt kann für schnellere Tests übersprungen werden.
 
-The depth postprocessing is structured in a three step process.
-The first step involves content type detection of uploaded files.
-The second step generates filtered track data out of sequences of tracks.
-The last and final step generates contour lines out of filtered data.
-Each step may be replaced by your own implementation if you require and each step may be skipped to account for faster testing.
-
-<h5><a name="datamodel">2.1 Data Model</a></h5>
-The data model is a domain specific model that models measurements and their associated units. The data model unifies the different file formats by providing
-a common set of measurement contents. The data model used for measurements is based on the Eclipse Modeling Framework and can be modified through the associated Eclipse features.
-The same data model is being used for the OpenSeaMap Data Logger. 
-The data model resides in the <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/net.sf.seesea.model.core">net.sf.seesea.model.core</a> bundle.<br><br>
+<h4><a name="datamodel">2.1 Datenmodell</a></h4>
+Das Datenmodell ist ein domänenspezifisches Modell, das Messungen und die zugehörigen Einheiten modelliert. Das Datenmodell vereinheitlicht die verschiedenen Dateiformate durch Bereitstellung
+von einem gemeinsamer Satz von Messinhalten. Das für Messungen verwendete Datenmodell basiert auf dem Eclipse Modeling Framework und kann über die zugehörigen Eclipse-Funktionen geändert werden.
+Für den OpenSeaMap Data Logger wird dasselbe Datenmodell verwendet. 
+Das Datenmodell befindet sich in dem <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/net.sf.seesea.model.core">net.sf.seesea.model.core</a> Paket.<br><br>
 
 <img src="images/PositionClassDiagram.png">Class diagram for measured positions</img><br><br>
 <img src="images/MeasurementsClassDiagram.png">Class diagram for measured positions</img><br><br>
 
-The data model for track files is used to process information from and to the database. It is not modeled with EMF but with plain old java objects (POJO) that provide 
-get and set methods but must not contain any logic.  
-It resides in the <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/net.sf.seesea.track.model">net.sf.seesea.track.model</a> bundle.<br>
+Das Datenmodell für Trackdateien wird verwendet, um Informationen von und zur Datenbank zu senden. Es ist nicht mit EMF modelliert, sondern mit einfachen alten Java-Objekten (POJO)
+"get" und "set" Methoden, darf aber keine Logik enthalten. 
+Es befindet sich in dem <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/net.sf.seesea.track.model">net.sf.seesea.track.model</a> Paket.<br>
 
-The data model for geometry is used during contour line generation. It is again not modeled with EMF for performance reasons with plain old java objects (POJO). 
-It resides in <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/net.sf.seesea.geometry">net.sf.seesea.geometry</a>.
+Das Datenmodell für die Geometrie wird bei der Konturliniengenerierung verwendet. Aus Performance-Gründen ist es ebenfalls mit einfachen alten Java-Objekten (POJO) und nicht mit EMF modelliert.
+Es befindet sich in dem <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/net.sf.seesea.geometry">net.sf.seesea.geometry</a> Paket.
 
-<h5><a name="contentdetection">2.2 Track Content Type Detection</a></h5>
-The uploaded files have no content type information. The track content type detection determines file formats, compression types and unfolds potentially contained
-tracks that are either specific to the track file format or due to compression. If such a contained track does occur the container track id will be set to the id of the
-containing track id file to indicate that it belongs to this id. This is important for track deletions where all contained tracks need to be deleted as well.
+<h4><a name="contentdetection">2.2 Track Content File Erkennung</a></h4>
+Die hochgeladenen Dateien enthalten keine Informationen zum Inhaltstyp. Die Erkennung des
+Track-Inhaltstyps bestimmt die Dateiformate, die Komprimierungsarten und potenziell
+enthaltene Track-Informationen, die entweder spezifisch für das Track-Dateiformat sind oder 
+aufgrund der Komprimierung hinzugefügt wurden. Wenn ein solcher Track vorkommt, wird die 
+Container-Track-ID zu der Track-Datei hinzugefügt, um anzuzeigen, dass sie zu dieser 
+Container-Track-ID gehört. Dies ist wichtig für die Löschung von Track-Containern, bei 
+denen auch alle enthaltenen einzelnen Tracks gelöscht werden müssen.<br>
 <br>
-The content type detection is based on the Apache Tika framework and can detect several file and compression formats. However it is unable to detect particular track file formats.
-Therefore file formats can provide an IStreamProcessor. It is being used to detect a particular track file format and must be provided by a track file format plugin.
+Die Erkennung des Inhaltstyps basiert auf dem Apache Tika-Framework und kann verschiedene 
+Datei- und Komprimierungsformate erkennen. Allerdings ist es nicht in der Lage bestimmte 
+Track-Dateiformate zu erkennen. Daher können Dateiformate einen IStreamProcessor bereitstellen.  
+Dieser wird zum Erkennen eines bestimmten Spurdateiformats verwendet und muss von einem 
+Plugin für das Spurdateiformat bereitgestellt werden.<br>
 <br>
-The IStreamProcessor uses a fixed amount of bytes to detect file formats without reading the whole track file. Some track file formats do not support this kind of early
-content detection because the nature of the format does not permit that in general. In that case a ITrackFileDecompressor may be provided to detect the file type.<br><br>
-
-You can provide a new file format by implementing these interface in a separate bundle and providing them as OSGi services.<br> 
+Der IStreamProcessor verwendet eine festgelegte Anzahl von Bytes, um Dateiformate zu 
+ermitteln, ohne die gesamte Track-Datei lesen zu müssen. Einige Track-Dateiformate 
+unterstützen diese Art der frühen Erkennung von Inhalten nicht, da die Art des Formats 
+dies im Allgemeinen nicht zulässt. In diesem Fall kann ein ITrackFileDecompressor 
+bereitgestellt werden, um den Dateityp zu ermitteln. <br>
+<br>
+Sie können ein neues Dateiformat bereitstellen, indem Sie diese Schnittstelle in einem
+separaten Paket implementieren und als OSGi-Dienste bereitstellen.<br> 
 <ul>
-	<li>Create a new plugin project named net.sf.seesea.provider.navigation.&lt;yourformat&gt;.</li>
-	<li>Right click on the plugin project and Configure -> Enable DS Annotations</li>
-	<li>Open the MANIFEST.MF</li>
-	<li>In the dependencies tab add net.sf.seesea.model.core and net.sf.seesea.track.api</li>
-	<li>Create a new class implementing IStreamProcessor</li>
-	<li>Add the @Component annotation to the class</li>
-	<li>If the file format is a binary add (property="type:String=binary") after the component annotation</li>
-	<li>Create a new class implementing ITrackFileProcessor</li>
-	<li>Add the @Component(factory="trackfile.&lt;yourmimetype&gt;") annotation to the class</li>
+	<li>Erstellen Sie ein neues Plugin-Projekt mit dem Namen "net.sf.seesea.provider.navigation.&lt;Ihr Format&gt;".</li>
+	<li>Klicken Sie mit der rechten Maustaste auf das Plugin-Projekt und dann auf Konfigurieren -> Aktivieren Sie DS-Anmerkungen</li>
+	<li>Öffne das MANIFEST.MF</li>
+	<li>In der Registerkarte Abhängigkeiten hinzufügen net.sf.seesea.model.core und net.sf.seesea.track.api</li>
+	<li>Erstellen Sie eine neue Klasse, die den IStreamProcessor implementiert</li>
+	<li>Die @Component Anmerkung zur Klasse hinzufügen</li>
+	<li>Wenn das Dateiformat ist ein binäres ist, füge (property="type:String=binary") nach der Komponentenanmerkung hinzu</li>
+	<li>Erstellen Sie eine neue Klasse, die ITrackFileProcessor implementiert</li>
+	<li>Füge die @Component (factory="trackfile.&lt;yourmimetype&gt;") Anmerkung zur Klasse</li>
 	<li>Extend the net.sf.seesea.data.postprocessing.data.FileType with the given mime type prefixed by "application/"</li>
-	<li>Create a new fragment project named net.sf.seesea.provider.navigation.&lt;yourformat&gt;.test</li>
-	<li>Open the MANIFEST.MF</li>
-	<li>In the dependencies tab add org.junit</li>
-	<li>Write unit tests in order to test the implementation</li>
-	<li>Add you plugin to the net.sf.seesea.data.processing.feature and launch the product</li>
-	<li>If you need additional libraries open up net.sf.seesea.thirdparty/pom.xml and add the desired library. Right click on the pom.xml and execute the Maven goal p2:site. Press F5 when finished and you will see a new target directory. Add that directory to your net.sf.seesea.backend.target target definition file and set it as target platform so the new library will resolve</li>
+	<li>Erstellen Sie ein neues Fragmentprojekt mit dem Namen net.sf.seesea.provider.navigation.&lt;yourformat&gt;.test</li>
+	<li>Öffne MANIFEST.MF</li>
+	<li>In der Registerkarte Abhängigkeiten "org.junit" hinzufügen </li>
+	<li>Schreiben Sie "unit tests", um die Umsetzung zu testen</li>
+	<li>Fügen Sie Ihr Plugin dem net.sf.seesea.data.processing.feature hinzu und starten Sie das Produkt</li>
+	<li>Falls Sie zusätzliche Bibliotheken benötigen, öffnen Sie net.sf.seesea.thirdparty/pom.xml und fügen Sie die gewünschte Bibliothek hinzu. Klicken Sie mit der rechten Maustaste auf die pom.xml und führen Sie "Maven goal p2:site" aus. Wenn es fertig ist, drücken Sie die Taste F5. Es wird ein neues Zielverzeichnis angezeigt. Fügen Sie dieses Verzeichnis net.sf.seesea.backend.target Ziel-Definitionsdatei hinzu und legen Sie sie als Zielplattform fest, damit die neue Bibliothek aufgelöst wird</li>
 </ul>
 
-The following UML sequence diagram shows the general content detection flow.<br>
+Das folgende UML-Sequenzdiagramm zeigt den allgemeinen Ablauf der Inhaltserkennung.<br>
 <br>
 
-<img src="images/ContentDetection.png">Sequence Diagram for Content Detection</img>
+<img src="images/ContentDetection.png">Sequenzdiagramm zur Inhaltserkennung</img>
 
-<h5><a name="filtering">2.3 Filtering</a></h5>
+<h4><a name="filtering">2.3 Filterung</a></h4>
  
-<h6>Recording Session Clustering</h6>
-Since there are many different file formats out there the following may happen:
+<h5>Recording Session Clustering</h5>
+Da es viele verschiedene Dateiformate gibt, kann Folgendes passieren:
 <ul>
-    <li>A track file contains a single recording</li>
-    <li>A track file is one of many parts of a single recording</li>
-    <li>A track file may contain multiple recordings</li>
+    <li>Ein Track-Datei enthält eine einzelne Aufzeichnung</li>
+    <li>Eine Track-Datei ist eine von vielen, die zu einer vollständigen Aufzeichnung gehören</li>
+    <li>Eine Track-Datei kann mehrere Aufzeichnungen enthalten</li>
 </ul>
-In order to provide good filtering results it is desirable to analyze the contents of the tracks per recording as noise distribution and satellite constellations do vary only slightly through a single recording.
-This requires to cluster the tracks based on their recording time and put the in an appropriate order so that recordings can be processed instead of files.
+<p>
+Um gute Filterergebnisse zu erzielen, ist es wünschenswert, den Inhalt der Tracks pro 
+Aufzeichnung zu analysieren, da die Rauschverteilung und Satellitenkonstellationen durch 
+eine einzige Aufzeichnung nur geringfügig variieren. Dazu müssen Sie die Tracks nach ihrer 
+Aufnahmezeit in einem Cluster zusammenfassen und in eine geeignete Reihenfolge bringen, 
+damit Aufzeichnungen anstelle von Dateien verarbeitet werden können.
+</p>
+<p>
+Als Leistungsverbesserung liefert das Clustering weitere Informationen, z. B. ob genügend 
+Daten zum Filtern vorhanden sind, Start- und Endzeit eines Tracks und ob der Track absolute 
+UTC-Zeit oder relative Aufzeichnungszeit enthält. Die absolute UTC-Zeit kann für 
+Zeitkorrekturen verwendet werden, während die relative Zeit nur für Positionskorrekturen 
+geeignet ist.
+</p>
+
+<h5>Pegel-Messgerät abrufen</h5>
+<p>
+Wenn in der Nähe Pegel-Messgeräte registriert sind, werden die Messwerte für die angegebenen 
+Track-Zeiten abgerufen, sofern dies möglich ist. Dies kann später von Filtern zur Korrektur 
+des Wasserstandes verwendet werden. Derzeit werden nur deutsche Pegel-Messgeräte registriert 
+und deren Werte abgerufen. Wenn Sie eine Schnittstelle für die Abfrage in anderer Länder 
+bereitstellen möchten, würde ich mich freuen, von Ihnen zu hören, und wir können uns mit 
+den Details befassen.
+</p>
+
+<h5>Filterung</h5>
+<p>
+Da einige Formate die gleichen Daten über unterschiedliche Datensätze mit unterschiedlicher 
+Geschwindigkeit und Genauigkeit bereitstellen, muss die beste Wahl ermittelt werden. 
+Dies kann besonders schwierig sein, wenn der Bus oder das Gerät unzuverlässig ist und nicht 
+in gleichen Intervallen aufzeichnet. Ein Statistikprozessor wählt dann die besten Daten aus 
+und stellt diese dem Filter zur Verfügung. Es können mehrere auswählbare Filter ausgeführt 
+werden. Während ein Filter nur die Rohdaten auswertet, kann ein anderer die Gezeitenkorrektur 
+und Modelle wie den Kalman-Filter oder den Kalman-Smoother verwenden, um bessere Ergebnisse 
+zu erzielen. Jeder Filterlauf kann in einer anderen Tabelle gespeichert werden, um das 
+Ergebnis der Filterung zu vergleichen.
+</p>
+
+<h5>Kalman Filter</h5>
+<p>
+Der bekannte "Kalman Filter", "Kalman Smoother" und der "Unscented Kalman Filter" wurden 
+implementiert. Abgesehen von sehr einfachen Modellen wurde bisher nichts anderes getestet.
+In Anbetracht der Sensordaten von GPS-, Log-, Kompass-, Beschleunigungs-, Gyroskop-, 
+Windex- und Offline-Wasserströmungsvorhersagemodellen kann dies eine ideale Gelegenheit sein, 
+um interessante Segelbootmodelle zu entwerfen. Kontaktieren Sie uns über die Mailingliste, 
+wenn Sie interessiert sind.
+</p>
+
+<h5>Gezeitenkorrektur</h5>
+<p>
+Die Gezeitenkorrektur kann während der Filterung verwendet werden. Die niedrigste 
+astronomische Tide wurde mit dem DTU10 Tide-Modell auf einem 0,125 ° -Gitter berechnet. 
+Bei einer beliebigen Position auf See und der zu diesem Zeitpunkt berechneten Gezeitenhöhe 
+kann die Tiefe über LAT für jeden Punkt auf See geschätzt werden. Es wurde modular codiert, 
+so dass es relativ einfach ist, die Gezeitenvorhersage in einem eigenständigen Produkt zu 
+verwenden.
+</p>
+
+<h4><a name="contourline">2.4 Tiefen Kontur-Linien Erzeugung</a></h4>
+<p>
+Die Konturlinienerzeugung befindet sich noch in der Entwicklung. Es wurden mehrere 
+Algorithmen ausprobiert. Da zu erwarten ist, dass OpenSeaMap hochgradig gruppierte Daten 
+enthält, die sehr ungleichmäßig verteilt sind und über Milliarden Datenpunkte verfügen, 
+ist ein traditioneller Erzeugungsmechanismus kaum wünschenswert. Das Verfahren "Inverse 
+Distance weighing" hat bekanntermaßen Probleme mit gruppierten Daten, während das Verfahren 
+"Kriging" an unbekannten Orten schlechte Ergebnisse liefern kann. Kurvenanpassungsmechanismen 
+können Probleme mit lokalen Aktualisierungen haben, wenn ein zusätzlicher Track hochgeladen 
+wurde. Daher wird eine inkrementelle Zwangsverzögerungstriangulation entwickelt, die von 
+einem Quad-Edge-Index unterstützt wird.
+</p>
+
 <br>
-As an performance improvement the clustering determines further information like if there is sufficient data to be filtered, start and end time of a track and whether the track contains absolute UTC or relative recording time.
-Absolute UTC time can be used to do time corrections whereas relative time may only be suitable for positional corrections.
-
-<h6>Gauge Retrieval</h6>
-If there are any nearby gauges registered, the gauge values are being retrieved for the given track times if possible. This may be used by filters later on to correct the water level if necessary. 
-Currently only German gauges are registered and values are retrieved.
-If you want to provide an interface to query other countries I'd be happy to hear from you and we can dig into the details.
-
-<h6>Filtering</h6>
-Since some formats provide the same data through different messages at different rates and accuracy the best choice needs to be determined. This may be particular difficult if the bus or device is unreliable and does not record at equidistant intervals.
-A statistics processor picks the best data and provides that to the filter.
-Multiple pluggable filters may be run. While one filter may just pass through the raw data another one may use tide correction and models such as the Kalman Filter or Kalman Smoother to generate improved results.
-Each filter run can be stored to a different table to compare the outcome of the filtering.
-
-<h6>Kalman Filter</h6>
-The well known Kalman Filter, Kalman Smoother and the Unscented Kalman Filter have been implemented. Apart from very simple models nothing else has been tested so far. 
-Given the sensor data from GPS, log, compass, accelerometer, gyroscope, windex and offline water current prediction models this may yield a perfect opportunity to design interesting sailing boat models.
-Contact us through the mailing list if your are interested.
-
-<h6>Tide Correction</h6>
-The tide correction may be used during filtering.
-The lowest astronomical tide has been calculated with the DTU10 Tide model on a 0.125° Grid. Given an arbitrary position at sea and the height of the tide calculated at that time one can estimate the depth above LAT for any point at sea.
-It has been coded in a modular way so it is fairly easy to use the tide prediction in a stand-alone product.  
-
-<h5><a name="contourline">2.4 Contour Line Generation</a></h5>
-The contour line generation is still under development. Several algorithms have been tried. Since it is to be expected that OpenSeaMap will have highly clustered data that is very unevenly distributed and with a billions of points, traditional
-generation mechanism may yield undesirable. Inverse Distance weighing is known to have problems with clustered data while Kriging may yield bad results in unknown locations. Curve fitting mechanisms may have problems with local area updates if an additional track has been uploaded.
-Therefore an incremental constrained delaunay triangulation supported by a quad edge index is being developed.    
-<br>
-Given the input edges of the osm coastline and the additional points of the tracks a constrained delaunay triangulation gives good first results compared to official data. Given such large datasets performance and numerical stability are real problems
-that are currently being solved.
+<p>In Anbetracht der Eingangsdaten der OSM-Küstenlinie und der zusätzlichen Messpunkte der Tracks 
+liefert eine beschränkte "Delaunay-Triangulation" im Vergleich zu offiziellen Daten gute 
+erste Ergebnisse. Bei solch großen Datensätzen sind Geschwindigkeit und numerische Stabilität 
+echte Probleme die derzeit gelöst werden.
+</p>
 
 </div>
 </body>
