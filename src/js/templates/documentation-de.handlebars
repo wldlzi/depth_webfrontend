@@ -13,31 +13,34 @@
 Dies ist die technische Dokumentation für Anwender oder diejenigen, die sich an dem Projekt beteiligen möchten.<br>
 Ein Javadoc ist auch <a href="/javadoc">verfügbar</a>.<br><br>
 
+<div class="toc">
 <ol type="1">
-  <li> <a href="#servercomm">Server-Kommunikation</a></li>
+  <li> <a href="#anchor-doc-de-1.">Server-Kommunikation</a></li>
   	<ol>
-  		<li><a href="#signin">Einloggen</a></li>
-  		<li><a href="#usermanagement">Benutzerverwaltung</a></li>
-  		<li><a href="#trackmanagement">Tracks Verwaltung</a></li>
-  		<li><a href="#vesselmanagement">Verwalten der Fahrzeugkonfigurationen</a></li>
-  		<li><a href="#licensemanagement">Lizenz Verwaltung</a></li>
+  		<li><a href="#anchor-doc-de-1.1">Einloggen</a></li>
+  		<li><a href="#anchor-doc-de-1.2">Benutzerverwaltung</a></li>
+  		<li><a href="#anchor-doc-de-1.3">Tracks Verwaltung</a></li>
+  		<li><a href="#anchor-doc-de-1.4">Verwalten der Fahrzeugkonfigurationen</a></li>
+  		<li><a href="#anchor-doc-de-1.5">Lizenz Verwaltung</a></li>
   	</ol>
   </li>
-  <li><a href="#backendprocessing">Backend-Verarbeitung</a></li>
+  <li><a href="#anchor-doc-de-2.">Backend-Verarbeitung</a></li>
   	<ol>
-  		<li><a href="#datamodel">Datenmodell</a></li>
-  		<li><a href="#contentdetection">Track Content File Erkennung</a></li>
-  		<li><a href="#filtering">Filterung</a></li>
-  		<li><a href="#contourline">Tiefen Kontur-Linien Erzeugung</a></li>
+  		<li><a href="#anchor-doc-de-2.1">Datenmodell</a></li>
+  		<li><a href="#anchor-doc-de-2.2">Track Content File Erkennung</a></li>
+  		<li><a href="#anchor-doc-de-2.3">Filterung</a></li>
+  		<li><a href="#anchor-doc-de-2.4">Tiefen Kontur-Linien Erzeugung</a></li>
   	</ol>
 
-  <li><a href="#backendprocessing">Anweisungen zum Einrichten</a></li>
-  <li><a href="#backendprocessing">Aufbau</a></li>
+  <li><a href="#anchor-doc-de-3.">Anweisungen zum Einrichten</a></li>
+  <li><a href="#anchor-doc-de-4.">Aufbau</a></li>
 
 </ol>  
+</div>
+
 <br>
 
-<h3><a name="servercomm">1. Server-Kommunikation</a></h3>
+<h3 id="anchor-doc-de-1.">1. Server-Kommunikation</h3>
 <p>
 Sie können Tracks über eine generische REST-Schnittstelle auf den Server laden. Dies kann 
 für Dritte interessant sein, die einen Upload-Mechanismus für das OpenSeaMap Depth-Projekt 
@@ -50,7 +53,7 @@ https at <a href="https://depth.openseamap.org:8443/org.osm.depth.upload/api2/">
 http at <a href="http://depth.openseamap.org:8080/org.osm.depth.upload/api2/">http://depth.openseamap.org:8080/org.osm.depth.upload/api2/</a>
 
 
-<h4><a name="signin">1.1 Einloggen</a></h4>
+<h4 id="anchor-doc-de-1.1">1.1 Einloggen</h4>
 <p>
 Um Daten auf den Server laden zu können, benötigen Sie ein Benutzer-Konto. Es wird 
 empfohlen, ein Benutzer-Konto über die Weboberfläche zu erstellen. Sollte dies nicht Ihren 
@@ -58,7 +61,7 @@ Anforderungen entsprichen, gibt es ein Captcha-Management, mit dem Sie einen neu
 erstellen können und den Inhalt des Captcha als separates Feld angeben müssen.
 </p>
 
-<h4><a name="usermanagement">1.2 Benutzerverwaltung</a></h4>
+<h4 id="anchor-doc-de-1.2">1.2 Benutzerverwaltung</h4>
 <p>
 Sobald Sie ein Benutzer-Konto haben, können Sie sich anmelden. Ihre Anmeldeinformationen 
 werden <b> unverschlüsselt </b> über die Leitung transportiert, sofern Sie nicht https: 
@@ -66,7 +69,7 @@ verwenden. Daher wird empfohlen, https: anstelle von http: als Protokoll zu verw
 Der Authentifizierungstyp ist die BASIC-Authentifizierung.
 </p>
 
-<h4><a name="trackmanagement">1.3 Tracks Verwaltung</a></h4>
+<h4 id="anchor-doc-de-1.3">1.3 Tracks Verwaltung</h4>
 <p>
 Um bereits vorhandene Tracks aufzulisten und um Neue auf den Server zu laden, müssen Sie 
 angemeldet sein. Sie sehen Ihre hochgeladenen Tracks und können Ihre eigenen Tracks auch 
@@ -82,7 +85,7 @@ angegeben werden. Siehe
 für zusätzliche Informationen.
 </p>
 
-<h4><a name="vesselmanagement">1.4 Verwalten der Fahrzeugkonfigurationen</a></h4>
+<h4 id="anchor-doc-de-1.4">1.4 Verwalten der Fahrzeugkonfigurationen</h4>
 <p>
 Um Tracks hochzuladen, müssen Sie eine Schiffskonfiguration definieren und die ID während 
 des Uploads angeben. Bitte werfen Sie einen Blick auf 
@@ -92,7 +95,7 @@ erstellen/bearbeiten, werfen Sie einen Blick auf die REST-Methode in
 <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/org.osm.depth.upload/src/main/java/org/osm/depth/upload/resources/VesselConfigurationResource.java">Java</a>.
 </p>
 
-<h4><a name="licensemanagement">1.5 Lizenz Verwaltung</a></h4>
+<h4 id="anchor-doc-de-1.5">1.5 Lizenz Verwaltung</h4>
 <p>
 Derzeit ist nur eine Lizenz verfügbar, die PDDL. Die ID dieser Lizenz ist 1. Wenn Sie 
 diese Lizenz-ID für den Track-Upload angeben, geben Sie diesen Track gemäß den Bedingungen 
@@ -100,7 +103,7 @@ der PDDL an OpenSeaMap ab. Es ist geplant, unterschiedliche Lizenzen bereitzuste
 kann jedoch die Datennutzung auf andere Bedingungen beschränken.
 </p>
 
-<h3><a name="backendprocessing">2. Backend-Verarbeitung</a></h3>
+<h3 id="anchor-doc-de-2.">2. Backend-Verarbeitung</h3>
 <p>
 Die Tiefen-Nachbearbeitung nutzt eine moderne und hoch modulare Komponentenarchitektur auf 
 Basis von OSGi. Dies ermöglicht es den Mitwirkenden, bestimmte Funktionen leicht durch 
@@ -116,7 +119,7 @@ Die Tiefen-Nachbearbeitung ist in drei Schritten strukturiert.
 </ul>
 Jeder Schritt kann bei Bedarf durch Ihre eigene Implementierung ersetzt werden, und jeder Schritt kann für schnellere Tests übersprungen werden.
 
-<h4><a name="datamodel">2.1 Datenmodell</a></h4>
+<h4 id="anchor-doc-de-2.1">2.1 Datenmodell</h4>
 Das Datenmodell ist ein domänenspezifisches Modell, das Messungen und die zugehörigen Einheiten modelliert. Das Datenmodell vereinheitlicht die verschiedenen Dateiformate durch Bereitstellung
 von einem gemeinsamer Satz von Messinhalten. Das für Messungen verwendete Datenmodell basiert auf dem Eclipse Modeling Framework und kann über die zugehörigen Eclipse-Funktionen geändert werden.
 Für den OpenSeaMap Data Logger wird dasselbe Datenmodell verwendet. 
@@ -132,7 +135,7 @@ Es befindet sich in dem <a href="https://sourceforge.net/p/seesea/code/HEAD/tree
 Das Datenmodell für die Geometrie wird bei der Konturliniengenerierung verwendet. Aus Performance-Gründen ist es ebenfalls mit einfachen alten Java-Objekten (POJO) und nicht mit EMF modelliert.
 Es befindet sich in dem <a href="https://sourceforge.net/p/seesea/code/HEAD/tree/trunk/net.sf.seesea.geometry">net.sf.seesea.geometry</a> Paket.
 
-<h4><a name="contentdetection">2.2 Track Content File Erkennung</a></h4>
+<h4 id="anchor-doc-de-2.2">2.2 Track Content File Erkennung</h4>
 Die hochgeladenen Dateien enthalten keine Informationen zum Inhaltstyp. Die Erkennung des
 Track-Inhaltstyps bestimmt die Dateiformate, die Komprimierungsarten und potenziell
 enthaltene Track-Informationen, die entweder spezifisch für das Track-Dateiformat sind oder 
@@ -179,7 +182,7 @@ Das folgende UML-Sequenzdiagramm zeigt den allgemeinen Ablauf der Inhaltserkennu
 
 <img src="images/ContentDetection.png">Sequenzdiagramm zur Inhaltserkennung</img>
 
-<h4><a name="filtering">2.3 Filterung</a></h4>
+<h4 id="anchor-doc-de-2.3">2.3 Filterung</h4>
  
 <h5>Recording Session Clustering</h5>
 Da es viele verschiedene Dateiformate gibt, kann Folgendes passieren:
@@ -246,7 +249,7 @@ so dass es relativ einfach ist, die Gezeitenvorhersage in einem eigenständigen 
 verwenden.
 </p>
 
-<h4><a name="contourline">2.4 Tiefen Kontur-Linien Erzeugung</a></h4>
+<h4 id="anchor-doc-de-2.4">2.4 Tiefen Kontur-Linien Erzeugung</h4>
 <p>
 Die Konturlinienerzeugung befindet sich noch in der Entwicklung. Es wurden mehrere 
 Algorithmen ausprobiert. Da zu erwarten ist, dass OpenSeaMap hochgradig gruppierte Daten 

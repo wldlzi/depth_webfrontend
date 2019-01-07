@@ -216,3 +216,12 @@ body {
 .helpOsm {
 font-size: 14px; !important
 }
+
+.toc {
+	padding: 9.5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+    background: #f5f5f5;
+}
