@@ -86,8 +86,8 @@ OSeaM.models.Auth = Backbone.Model.extend({
         jQuery.ajax({
             type: 'POST',
             url: OSeaM.apiUrl + 'auth/login',
-            dataType: 'json',
-            data: params,
+            dataType: 'json',												//RKu: Datatyp expected back from the server
+            data: params,													//RKu: enthält username: "xxx.yyy@zzz.de" + password: "converted to MD5"
             context: this,
             xhrFields: {
                 withCredentials: true

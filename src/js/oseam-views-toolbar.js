@@ -52,10 +52,10 @@ OSeaM.views.ToolBar = OSeaM.View.extend({
     },
     validateForm: function() {
         this.removeAlerts();
-        if (OSeaM.utils.Validation.username(this.fieldUsername.val()) !== true) {
+        if (OSeaM.utils.Validation.username(this.fieldUsername.val()) !== true) {	//RKu: username valid
             this.markInvalid(this.fieldUsername, '1010:Invalid Email format.');
         }
-        if (this.fieldPassword.val().length < 8) {
+        if (this.fieldPassword.val().length < 8) {									//RKu: password length valid
             this.markInvalid(this.fieldPassword, '1012:At least 8 characters.');
         }
         return this.isValid;
@@ -82,16 +82,16 @@ OSeaM.views.ToolBar = OSeaM.View.extend({
     },
     onFormSubmit: function(evt) {
         evt.preventDefault();
-        this.buttonSubmit.button('loading');
-        if (this.validateForm() !== true) {
+        this.buttonSubmit.button('loading');										//RKu: anzeigen, das die Eingabe bearbeitet wird
+        if (this.validateForm() !== true) {											//RKu: ist der username (e-Mail Format) richtig und hat das password mehr als 8 Zeichen
             this.buttonSubmit.button('reset');
             return;
         }
-        var params = {
+        var params = {																//RKu: Parameter für den POST an TomCat setzen
             username : this.fieldUsername.val(),
             password : this.fieldPassword.val()
         };
-        params.password = jQuery.encoding.digests.hexSha1Str(params.password);
+        params.password = jQuery.encoding.digests.hexSha1Str(params.password);		//RKu: Password verschlüsseln
         this.model.login(params);													//RKu: ruft in oseam-models-auth.js die funktion login auf
         this.buttonSubmit.button('reset');
         return false;

@@ -15,22 +15,23 @@ OSeaM.routers.Router = Backbone.Router.extend({
     toolBar: null,
     navBar: null,
     routes: {
-        'home'         : 'home',
-        'about'        : 'about',
-        'register'     : 'register',
-        'reset-password'     : 'resetPassword',
-        'introduction' : 'introduction',
-        'tracks'       : 'tracks',
-        'vessels'      : 'vessels',
-        'gauges'      : 'gauges',
-        'user'      : 'user',
-        'maptracks'    : 'maptracks',
-        'license'      : 'license',
-        'instructions' : 'instructions',
-        'attributions' : 'attributions',
-        'contribute'   : 'contribute',
-        'documentation'   : 'documentation',
-        '*default'     : 'home'
+        'home'				: 'home',
+        'about'				: 'about',
+        'register'			: 'register',
+        'reset-password'	: 'resetPassword',
+        'introduction'		: 'introduction',
+        'tracks'			: 'tracks',
+        'vessels'			: 'vessels',
+        'gauges'			: 'gauges',
+        'user'				: 'user',
+        'maptracks'			: 'maptracks',
+        'instructions'		: 'instructions',
+        'license'			: 'license',
+        'contribute'		: 'contribute',
+        'documentation'		: 'documentation',
+        'attributions'		: 'attributions',
+        'contact'			: 'contact',									//RKu: add this new function
+        '*default'			: 'home'
     },
     renderTopAndNavBar: function(activeItem) {
         if (this.toolBar === null) {
@@ -147,5 +148,9 @@ OSeaM.routers.Router = Backbone.Router.extend({
     attributions: function() {
         this.renderTopAndNavBar('attributions');
         OSeaM.frontend.startView('Attributions');
+    },
+    contact: function() {										//RKu: add this new function
+        this.renderTopAndNavBar('contact');
+        OSeaM.frontend.startView('Contact');					//RKu: call OSeaM.views.Contact (new .js)
     }
 });

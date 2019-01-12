@@ -44,6 +44,8 @@ function loadTemplates()
 		"alert",
 		"attributions-de",
 		"attributions-en",
+		"contact-de",
+		"contact-en",
 		"contribute-en",
 		"contribute-de",
 		"depthsensoroffset-de",

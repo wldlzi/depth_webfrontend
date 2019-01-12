@@ -96,7 +96,7 @@ OSeaM.models.Frontend = Backbone.Model.extend({
                     me.translate($('body'));
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    alert('Unable to load language.');
+                    alert('Unable to load language.'  + errorThrown);
                 }
             });
         } else {

@@ -53,7 +53,7 @@ OSeaM.views.Tracks = OSeaM.View.extend({
       this.render();
     },
     
-    // this function does add each track-entry, already stored on the servers database, to the current view
+    //RKu: this function does add each track-entry, already stored on the servers database, to the current view
     addViews: function() {
       this.listEl.empty();
       this._views = [];
