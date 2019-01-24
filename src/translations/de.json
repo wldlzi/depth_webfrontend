@@ -9,14 +9,14 @@
     "1007":"Captcha",
     "1008":"Erneuern",
     "1009":"Login!",
-    "1010":"Falsches E-Mail Format.",
+    "1010":"Falsches E-Mail Format",
     "1011":"Verifikation ist unterschiedlich.",
     "1012":"Mindestens 8 Zeichen.",
     "1013":"Falsches captcha.",
     "1014":"Lizenz",
     "1015":"Ich akzeptiere die <a href=\"#license\" target=\"_blank\">Lizenz</a>.",
     "1016":"Deine E-Mail Adresse",
-    "1017":"Passwort Verifizierung",
+    "1017":"Passwort Verifizierung erforderlich",
     "1018":"Registrieren",
     "1019":"Tracks hochladen",
     "1020":"Registrierung",
@@ -98,5 +98,15 @@
     "1401":"Neues Passwort anfordern",
     "1402":"Passwort wurde angefordert.",
     "1403":"Ein neues Passwort wurde an die Mailadresse gesendet",
-    "1404":"Nutzername existiert nicht."
+    "1404":"Nutzername existiert nicht.",
+    "1410":"kein Captcha vom Server erhalten",
+    "2000":"Status 0 - Es wurde kein Server mit dem angegebenen Hostnamen gefunden.",
+    "2400":"Status 400 - Der Server hat die Anforderung verstanden, jedoch der Nachrichteninhalt ist falsch.",
+    "2401":"Status 401 - Nicht autorisierter Zugriff.",
+    "2403":"Status 403 - Verboten, auf diese Resource darf nich zugegriffen werden.",
+    "2404":"Status 404 - Dieser Service ist nicht verfügbar.",
+    "2500":"Status 500 - Interner Server Fehler.",
+    "2503":"Status 503 - Dieser Service ist nicht verfügbar.",
+    "2510":"Unbekannte Fehlermeldung vom Server."
+
 }

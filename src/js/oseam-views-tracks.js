@@ -124,6 +124,7 @@ OSeaM.views.Tracks = OSeaM.View.extend({
       if (typeof this.candidateTrack.get('vesselconfigid') === "undefined" || typeof this.candidateTrack.get('license') === "undefined") {
 //        alert('You have to select a vessel configuration and a license in order to upload tracks');
 //RKu:+ 
+        this.removeAlerts();										//RKu: clear alerts if there are any
         var template = OSeaM.loadTemplate('alert');					//RKu: set up a proper error message if vessel and license not valid      
         this.renderParams =  {
             title : '1027:Validation error occured!',
@@ -154,7 +155,7 @@ OSeaM.views.Tracks = OSeaM.View.extend({
             // TODO: do something with the error
             error: function(newTrack, xhr, options) {
               self.collection.remove(newTrack);
-              console.log(xhr);
+              console.log(xhr);										//RKu: I need to simulate this case first in order to develop a proper error message
             },
             // on success start the progress of upload
             success: jQuery.proxy(fn, self, evt.target.files[i])
