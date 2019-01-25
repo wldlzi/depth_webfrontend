@@ -4,3 +4,5 @@
 build
 debug
 release
+src/js/oseam-views-register.js
+src/js/oseam-views-resetPassword.js

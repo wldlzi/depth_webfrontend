@@ -31,7 +31,9 @@ OSeaM.routers.Router = Backbone.Router.extend({
         'documentation'		: 'documentation',
         'attributions'		: 'attributions',
         'contact'			: 'contact',									//RKu: add this new function
-        '*default'			: 'home'
+        'wellcome'			: 'wellcome',									//RKu: add this new function
+        'goodby'			: 'goodby',										//RKu: add this new function
+        '*default'			: 'nix'											//RKu: just do nothing has replaced home to allow that "table of contens" will work
     },
     renderTopAndNavBar: function(activeItem) {
         if (this.toolBar === null) {
@@ -55,8 +57,11 @@ OSeaM.routers.Router = Backbone.Router.extend({
         if (OSeaM.frontend.getAuth().isAuthenticated() === true) {
             return true;
         } else {
-            OSeaM.frontend.startView('Login');
+            OSeaM.frontend.startView('Login');					//RKu: View 'Login' == show error message
         }
+    },
+    nix: function() {											//RKu: do nothing function
+        this.renderTopAndNavBar('home');
     },
     home: function() {
         this.renderTopAndNavBar('home');
@@ -82,7 +87,7 @@ OSeaM.routers.Router = Backbone.Router.extend({
         });
     },
     resetPassword: function() {
-        this.renderTopAndNavBar('ResetPassword');
+        this.renderTopAndNavBar('resetPassword');				//RKu: Eintrag war falsch: 'ResetPassword' => 'resetPassword'
         OSeaM.frontend.startView('ResetPassword', {
             model: OSeaM.frontend.getAuth()
         });
@@ -152,5 +157,13 @@ OSeaM.routers.Router = Backbone.Router.extend({
     contact: function() {										//RKu: add this new function
         this.renderTopAndNavBar('contact');
         OSeaM.frontend.startView('Contact');					//RKu: call OSeaM.views.Contact (new .js)
+    },
+    wellcome: function() {										//RKu: add this new function
+        this.renderTopAndNavBar('wellcome');
+        OSeaM.frontend.startView('Wellcome');					//RKu: call OSeaM.views.Contact (new .js)
+    },
+    goodby: function() {										//RKu: add this new function
+        this.renderTopAndNavBar('goodby');
+        OSeaM.frontend.startView('Goodby');						//RKu: call OSeaM.views.Contact (new .js)
     }
 });

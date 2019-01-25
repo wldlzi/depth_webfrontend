@@ -58,6 +58,8 @@ function loadTemplates()
 		"gaugemeasurement",
 		"gauges-de",
 		"gauges-en",
+		"goodby-de",
+		"goodby-en",
 		"gpsoffset-de",
 		"gpsoffset-en",
 		"home-de",
@@ -90,6 +92,8 @@ function loadTemplates()
 		"vesselitem",
 		"vessels-de",
 		"vessels-en",
+		"wellcome-de",
+		"wellcome-en",
 		"wizard" ];
 
 	for ( t of hbdivs )

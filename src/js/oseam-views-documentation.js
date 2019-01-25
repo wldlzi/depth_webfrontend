@@ -24,7 +24,3 @@ OSeaM.views.Documentation = OSeaM.View.extend({
         return this;
     }
 });
-
-
-// Vielleicht ist das die Lösung, braucht aber ein neues jquery
-// https://stackoverflow.com/questions/2419749/get-selected-elements-outer-html

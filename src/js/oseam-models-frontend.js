@@ -89,7 +89,7 @@ OSeaM.models.Frontend = Backbone.Model.extend({
         if (this.translations[language] === undefined) {
             var me = this;
             jQuery.ajax({
-                url: 'translations/' + language + '.json',
+                url: 'translations/' + language + '.json',						//RKu: at pressent we have 2 languages (en and de)
                 dataType: 'json',
                 success: function(data, success, jqXHR) {
                     me.translations[language] = data;
