@@ -104,7 +104,7 @@ OSeaM.views.ToolBar = OSeaM.View.extend({
             username : this.fieldUsername.val(),
             password : this.fieldPassword.val()
         };
-        params.password = jQuery.encoding.digests.hexSha1Str(params.password);		//RKu: Password verschlüsseln
+        params.password = jQuery.encoding.digests.hexSha1Str(params.password).toLowerCase();	//RKu: Password verschlüsseln, ganz wichtig: "toLowerCase()", da die PW so in der DB gespeichert sind.
         this.model.login(params);													//RKu: ruft in oseam-models-auth.js die funktion login auf
         this.buttonSubmit.button('reset');
         return false;

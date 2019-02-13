@@ -85,7 +85,7 @@ OSeaM.models.Auth = Backbone.Model.extend({
 
         jQuery.ajax({
             type: 'POST',
-            url: OSeaM.apiUrl + 'auth/login',
+            url: OSeaM.apiUrl + 'auth/login',								//RKu: apiUrl: 'http://depth.openseamap.org/org.osm.depth.upload/api2/'
             dataType: 'json',												//RKu: Datatyp expected back from the server
             data: params,													//RKu: enthält username: "xxx.yyy@zzz.de" + password: "converted to MD5"
             context: this,
@@ -93,8 +93,8 @@ OSeaM.models.Auth = Backbone.Model.extend({
                 withCredentials: true
             },
             success: this.onLoginSuccess,
-//            error: this.onLoginError			// Original Zeile
-            error: this.onLoginSuccess			// RKu: nur zum Test: diese Zeile muss wieder raus.
+            error: this.onLoginError			// Original Zeile
+//            error: this.onLoginSuccess			// RKu: nur zum Test: diese Zeile muss wieder raus.
         });
     },
     
@@ -124,8 +124,8 @@ OSeaM.models.Auth = Backbone.Model.extend({
                 withCredentials: true
             },
             success: this.onLogoutSuccess,
-//            error: this.onLogoutError			// Original Zeile
-            error: this.onLogoutSuccess			// RKu: nur zum Test: diese Zeile muss wieder raus.
+            error: this.onLogoutError			// Original Zeile
+//            error: this.onLogoutSuccess			// RKu: nur zum Test: diese Zeile muss wieder raus.
         });
     },
     

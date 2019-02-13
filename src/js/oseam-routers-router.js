@@ -57,10 +57,10 @@ OSeaM.routers.Router = Backbone.Router.extend({
         if (OSeaM.frontend.getAuth().isAuthenticated() === true) {
             return true;
         } else {
-            OSeaM.frontend.startView('Login');					//RKu: View 'Login' == show error message
+            OSeaM.frontend.startView('Login');					//RKu: View 'Login' == show error message !!! needed as soon we have a proper login procedure
         }
     },
-    nix: function() {											//RKu: do nothing function
+    nix: function() {											//RKu: do nothing function will to allow that "table of contens" will work
         this.renderTopAndNavBar('home');
     },
     home: function() {

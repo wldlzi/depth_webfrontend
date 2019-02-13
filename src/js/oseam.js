@@ -21,10 +21,10 @@ OSeaM = {
     router: null,
 
 //    apiUrl: 'http://192.168.0.11:8080/org.osm.depth.upload/api2/',
-//Orginal    apiUrl: 'http://depth.openseamap.org/org.osm.depth.upload/api2/',
+//Original    apiUrl: 'http://depth.openseamap.org/org.osm.depth.upload/api2/',
 //    apiUrl: 'http://testdepth.openseamap.org:8080/org.osm.depth.upload.stage/api2/',
 //    apiUrl: 'http://localhost:8080/org.osm.depth.upload/api2/',
-    apiUrl: 'http://debianvm:8080/org.osm.depth.upload/api2/',					//RKu: Testumbebung
+    apiUrl: 'http://debianvm:8080/org.osm.depth.upload/api2/',					//RKu: meine Testumbebung
     autoId: 0,
     
     init: function() {
