@@ -13,13 +13,11 @@
 			<tr>
 				<th align="right">your E-Mail:</th>
 				<td align="left"><input type="text" name="j_username" size="50"></input></td>
-				<th align="left">Richard.Kunzmann@t-online.de</th>
 			</tr>
 			
 			<tr>
 				<th align="right">Password:</th>
 				<td align="left"><input type="password" name="j_password" size="50"></input></td>
-				<th align="left">vfo6ukhr3t40emid0f78o29j5p</th>
 			</tr>
 			
 			<tr>
