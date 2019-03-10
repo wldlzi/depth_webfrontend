@@ -17,6 +17,7 @@ OSeaM.routers.Router = Backbone.Router.extend({
     routes: {
         'home'				: 'home',
         'about'				: 'about',
+        'logon'				: 'logon',										//RKu: add this new function
         'register'			: 'register',
         'reset-password'	: 'resetPassword',
         'introduction'		: 'introduction',
@@ -57,7 +58,7 @@ OSeaM.routers.Router = Backbone.Router.extend({
         if (OSeaM.frontend.getAuth().isAuthenticated() === true) {
             return true;
         } else {
-//            OSeaM.frontend.startView('Login');					//RKu: View 'Login' == show error message !!! needed as soon we have a proper login procedure
+            OSeaM.frontend.startView('Login');		//RKu: View 'Login' == show error message !!! needed as soon we have a proper login procedure
         }
     },
     nix: function() {											//RKu: do nothing function will to allow that "table of contens" will work
@@ -78,6 +79,13 @@ OSeaM.routers.Router = Backbone.Router.extend({
             model: OSeaM.frontend.getUser()
         });
         this.checkAuthenticated();								//RKu: das muss ergänzt werden, sobald man auf dem Server einloggen kann
+    },
+    
+    logon: function() {											//RKu: add this new function
+        this.renderTopAndNavBar('logon');
+        OSeaM.frontend.startView('Logon', {						//RKu: call OSeaM.views.Logon (new .js)
+            model: OSeaM.frontend.getUser()
+        });
     },
     
     register: function() {

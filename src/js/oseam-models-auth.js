@@ -93,8 +93,7 @@ OSeaM.models.Auth = Backbone.Model.extend({
                 withCredentials: true
             },
             success: this.onLoginSuccess,
-            error: this.onLoginError			// Original Zeile
-//            error: this.onLoginSuccess			// RKu: nur zum Test: diese Zeile muss wieder raus.
+            error: this.onLoginError
         });
     },
     
@@ -111,7 +110,7 @@ OSeaM.models.Auth = Backbone.Model.extend({
         var elements = document.getElementById("oseam-2");					//RKu: {{idPassword}}
         elements.style.backgroundColor = '#FF4500';							//RKu:
         alert("Fehlermeldung von TomCat nach Login: " +jqXHR.status + " " + errorThrown + "\nBitte melde Dich ordentlich an, um diese Funktion zu nutzen.");	//RKu: vorübergehend
-        window.location.reload();											//RKu: reload the frontend from the beginning
+        window.location.reload(true);										//RKu: reload the frontend from server not from cache
     },
     
     logout: function() {
@@ -124,20 +123,26 @@ OSeaM.models.Auth = Backbone.Model.extend({
                 withCredentials: true
             },
             success: this.onLogoutSuccess,
-            error: this.onLogoutError			// Original Zeile
-//            error: this.onLogoutSuccess			// RKu: nur zum Test: diese Zeile muss wieder raus.
+            error: this.onLogoutError
         });
     },
     
     onLogoutSuccess: function(data, success, jqXHR) {
         this.trigger('logoutSuccess', data);
         this.setAuthenticated(false);
+        var usermodel = OSeaM.frontend.getUser();							//RKu:
+        usermodel.attributes.user_name = null;								//RKu: reset "user_name" as this was the indicator for "Authenticated = true"
+        var vesselcoll = OSeaM.frontend.getVessels();
+        vesselcoll.reset();													//RKu: clear all vessel information
+        var trackscoll = OSeaM.frontend.getTracks();
+        trackscoll.reset();													//RKu: clear all track information
+        
         OSeaM.frontend.startView('Goodby');									//RKu: call OSeaM.views.Contact (new .js)
     },
     
     onLogoutError: function(jqXHR, textStatus, errorThrown) {
         this.trigger('logoutFailure', jqXHR);
         alert("Fehlermeldung von TomCat nach Logout: "   +jqXHR.status + " " + errorThrown + "\nZur Sicherheit starte bitte Deinen Browser neu.");	//RKu: vorübergehend
-        window.location.reload();											//RKu: reload the frontend from the beginning
+        window.location.reload(true);										//RKu: reload the frontend from server not from cache
     }
 });

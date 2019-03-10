@@ -70,6 +70,7 @@ function loadTemplates()
 		"introduction-en",
 		"license-de",
 		"license-en",
+		"logon",
 		"maptracks",
 		"meta1-de",
 		"meta1-en",

@@ -16,16 +16,17 @@ OSeaM.views.User = OSeaM.View.extend({
         OSeaM.frontend.on('change:language', this.render, this);
         this.listenTo(this.model, 'change', this.render);
         this.model.fetch();
+
     },
     render: function() {
         var language = OSeaM.frontend.getLanguage();
         var template = OSeaM.loadTemplate('user-' + language);			// default language is "en"
         var content = $(template( {
-            user_name         : this.model.get('user_name'),
-            forename   : this.model.get('forname'),
-            surname   : this.model.get('surname'),
-            organisation   : this.model.get('organisation'),
-            acceptedEmailContact   : this.model.get('acceptedEmailContact')
+            user_name	: this.model.get('user_name'),					//RKu: 
+            forename	: this.model.get('forname'),
+            surname		: this.model.get('surname'),
+            organisation: this.model.get('organisation'),
+            acceptedEmailContact : this.model.get('acceptedEmailContact')
         }));
         OSeaM.frontend.translate(content);
         this.$el.html(content);
@@ -36,6 +37,7 @@ OSeaM.views.User = OSeaM.View.extend({
         } else {
         	$('#phones').bfhphone({country: 'countries', phone : this.model.get('phone')});
         }
+        
         return this;
     }
 });
