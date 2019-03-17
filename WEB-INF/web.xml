@@ -156,12 +156,21 @@
       <http-method>TRACE</http-method>
       <http-method>POST</http-method>
     </web-resource-collection>
+    
+    <!-- RKu: login and logout -->
     <web-resource-collection>
       <web-resource-name>Login</web-resource-name>
       <url-pattern>/api2/auth/login</url-pattern>
       <http-method>OPTIONS</http-method>
       <http-method>POST</http-method>
     </web-resource-collection>
+    <web-resource-collection>
+      <web-resource-name>Logout</web-resource-name>
+      <url-pattern>/api2/auth/logout</url-pattern>
+      <http-method>OPTIONS</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <!-- RKu: Ende -->
     
     <auth-constraint>
       <role-name>USER</role-name>
@@ -203,24 +212,7 @@
       <url-pattern>/api2/users/captcha</url-pattern>
       <http-method>OPTIONS</http-method>
       <http-method>POST</http-method>
-    </web-resource-collection>
-    
-    <!-- RKu: login and logout must be available to everyone
-    <web-resource-collection>
-      <web-resource-name>Login</web-resource-name>
-      <url-pattern>/api2/auth/login</url-pattern>
-      <http-method>OPTIONS</http-method>
-      <http-method>POST</http-method>
-    </web-resource-collection>   -->
-    
-    <web-resource-collection>
-      <web-resource-name>Logout</web-resource-name>
-      <url-pattern>/api2/auth/logout</url-pattern>
-      <http-method>OPTIONS</http-method>
-      <http-method>POST</http-method>
-    </web-resource-collection>
-    <!-- RKu: Ende -->
-    
+    </web-resource-collection>    
     <!-- everyone may list the gauges we have -->
     <web-resource-collection>
       <web-resource-name>Gauges</web-resource-name>
