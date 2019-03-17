@@ -29,6 +29,7 @@ def configure(ctx):
         'oseam-views-about.js',
         'oseam-views-attributions.js',
         'oseam-views-documentation.js',
+        'oseam-views-contact.js',
         'oseam-views-contribute.js',
         'oseam-views-depthsensorpage.js',
         'oseam-views-gpspage.js',
@@ -36,8 +37,10 @@ def configure(ctx):
         'oseam-views-gaugedialog.js',
         'oseam-views-gauge.js',
         'oseam-views-gauges.js',
+        'oseam-views-goodby.js',
         'oseam-views-license.js',
         'oseam-views-login.js',
+        'oseam-views-logon.js',
         'oseam-views-maptracks.js',
         'oseam-views-meta1.js',
         'oseam-views-meta2.js',
@@ -57,6 +60,7 @@ def configure(ctx):
         'oseam-views-vesselitem.js',
         'oseam-views-vesselpage.js',
         'oseam-views-vessels.js',
+        'oseam-views-wellcome.js',
         'oseam-views-wizard.js',
     ]
     ctx.env.JSSTAGE1NAME = 'all-stage1.js'
