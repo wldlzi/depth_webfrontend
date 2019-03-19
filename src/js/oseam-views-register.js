@@ -34,6 +34,8 @@ OSeaM.views.Register = OSeaM.View.extend({
             idPassword1 : OSeaM.id(),
             idPassword2 : OSeaM.id(),
             idCaptcha   : OSeaM.id(),
+            idForename	: OSeaM.id(),
+            idSurname	: OSeaM.id(),
 //            idLicense   : OSeaM.id(),
             idSubmit    : OSeaM.id()
         };
@@ -45,6 +47,8 @@ OSeaM.views.Register = OSeaM.View.extend({
         this.fieldPassword1 = this.$el.find('#' + this.renderParams.idPassword1);
         this.fieldPassword2 = this.$el.find('#' + this.renderParams.idPassword2);
         this.fieldCaptcha   = this.$el.find('#' + this.renderParams.idCaptcha);
+        this.fieldForename  = this.$el.find('#' + this.renderParams.idForename);
+        this.fieldSurname   = this.$el.find('#' + this.renderParams.idSurname);
 //        this.fieldLicense   = this.$el.find('#' + this.renderParams.idLicense);
         this.buttonSubmit   = this.$el.find('#' + this.renderParams.idSubmit);
         var fn = function(data) {
@@ -128,6 +132,14 @@ OSeaM.views.Register = OSeaM.View.extend({
             this.markInvalid(this.fieldCaptcha, '1013:Invalid captcha.');
             errors.push('1007:Captcha');
         }
+        if (this.fieldForename.val().length < 2) {
+            this.markInvalid(this.fieldForename, '1108:Vorname erforderlich');
+            errors.push('1108:Vorname erforderlich');
+        }    
+        if (this.fieldSurname.val().length < 2) {
+            this.markInvalid(this.fieldSurname, '1109:Nachname erforderlich');
+            errors.push('1109:Nachname erforderlich');
+        }    
 //        if (this.fieldLicense.is(':checked') !== true) {
 //            this.markInvalid(this.fieldLicense, '');
 //            errors.push('1014:License');

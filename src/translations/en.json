@@ -80,6 +80,8 @@
 	"1105":"Please enter the vessel length",
 	"1106":"Please enter the beam",
 	"1107":"Please enter a decimal",
+	"1108":"First name required",
+	"1109":"Last name required",
     "1200":"User",
     "1201":"Contribute",
     "1202":"Documentation",
