@@ -26,17 +26,19 @@ OSeaM.views.User = OSeaM.View.extend({
             forename	: this.model.get('forname'),
             surname		: this.model.get('surname'),
             organisation: this.model.get('organisation'),
+            phone		: this.model.get('phone'),						//RKu: this is just a temporary solution as long as bfhphone is not really working
             acceptedEmailContact : this.model.get('acceptedEmailContact')
         }));
         OSeaM.frontend.translate(content);
         this.$el.html(content);
         $('#countries').bfhcountries({country: this.model.get('country')});
         $('#languages').bfhlanguages({language: this.model.get('language')});
-        if(this.model.get('phone') == null) {
-        	$('#phones').bfhphone({country: 'countries'});
-        } else {
-        	$('#phones').bfhphone({country: 'countries', phone : this.model.get('phone')});
-        }
+
+//        if(this.model.get('phone') == null) {							//RKu: there might be a bug in bfhphone as it is not working as expected
+//        	$('#phones').bfhphone({country: 'countries'});
+//        } else {
+//        	$('#phones').bfhphone({country: 'countries', number : this.model.attributes.phone});
+//        }
         
         return this;
     }
